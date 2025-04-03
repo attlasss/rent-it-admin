@@ -1,53 +1,28 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
-      <div class="col-lg-8">
-        <div class="row mt-4">
-          <div class="col-xl-6 mb-xl-0 mb-4">
-            <master-card />
-          </div>
-          <div class="col-xl-6">
-            <div class="row">
-              <div class="col-md-6">
-                <default-info-card
-                  :icon="{
-                    component: 'fas fa-landmark',
-                    background: 'bg-gradient-success',
-                  }"
-                  title="Salary"
-                  description="Belong Interactive"
-                  value="+$2000"
-                />
-              </div>
-              <div class="col-md-6">
-                <default-info-card
-                  :icon="{
-                    component: 'fab fa-paypal',
-                    background: 'bg-gradient-success',
-                  }"
-                  title="Paypal"
-                  description="Freelance Payment"
-                  value="$455.00"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12 mb-4">
-            <payment-card />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <invoice-card class="mt-4" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-7">
-        <billing-card />
-      </div>
-      <div class="col-md-5">
-        <transaction-card />
+      <div class="col-md-12">
+        <h3>Datos desde la base de datos</h3>
+        <ul>
+          <li v-for="item in data" :key="item.id">{{ item.name }}</li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+
+export default {
+  data() {
+    return {
+      data: [],
+    };
+  },
+  mounted() {
+  },
+  methods: {
+    
+  },
+};
+</script>

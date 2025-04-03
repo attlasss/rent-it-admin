@@ -4,9 +4,10 @@ import Tables from "../views/Tables.vue";
 import Billing from "../views/Billing.vue";
 import RTL from "../views/Rtl.vue";
 import Profile from "../views/Profile.vue";
-import Signup from "../views/Signup.vue";
 import Signin from "../views/Signin.vue";
-
+import Users from "../views/Users.vue";
+import Comandes from "../views/Comandes.vue";
+import Categories from "../views/Categories/Categories.vue";
 const routes = [
   {
     path: "/",
@@ -17,6 +18,21 @@ const routes = [
     path: "/dashboard-default",
     name: "Dashboard",
     component: Dashboard,
+  },
+  {
+    path: "/users",
+    name: "Users",
+    component: Users,
+  },
+  {
+    path: "/comandes",
+    name: "Comandes",
+    component: Comandes,
+  },
+  {
+    path: "/categories",
+    name: "Categories",
+    component: Categories,
   },
   {
     path: "/tables",
@@ -42,11 +58,6 @@ const routes = [
     path: "/signin",
     name: "Signin",
     component: Signin,
-  },
-  {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
   },
 ];
 

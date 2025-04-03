@@ -1,8 +1,10 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "https://mi-api.railway.app", // Reemplaza con tu URL de Railway
-  headers: { "Content-Type": "application/json" }
+let axiosConn = axios.create({
+  baseURL: "http://localhost:3000",
+  // baseURL: "https://backend-admin-jn39ihzl0-carolinamv1234s-projects.vercel.app",
 });
 
-export default api;
+export default axiosConn;
+
+
