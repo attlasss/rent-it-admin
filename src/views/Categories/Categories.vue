@@ -7,7 +7,7 @@
         </div>
         <div class="card-body px-0 pt-0 pb-2 mt-4">
           <div class="table-responsive p-0">
-            <b-table striped hover bordered class="table align-items-center mb-0" :items="filteredUsers" :fields="fields">
+            <b-table striped hover bordered class="table align-items-center mb-0" :items="filteredCategoria" :fields="fields">
               <template #cell(username)="data">
                 <div class="d-flex px-2 py-1">
                   <div>
@@ -39,7 +39,7 @@
   export default {
     data() {
       return {
-        users: [],
+        categories: [],
         search: "",
         fields: [
           { key: "id", label: "id", sortable: true },
@@ -54,15 +54,15 @@
       };
     },
     computed: {
-      filteredUsers() {
-        return this.users.filter((user) =>
-          Object.values(user).some((value) =>
+      filteredCategoria() {
+        return this.categories.filter((user) =>
+          Object.values(categoria).some((value) =>
             String(value).toLowerCase().includes(this.search.toLowerCase())
           )
         );
       },
     },
-    mounted() {
+    mounted() {   
       this.getUsers();
     },
     methods: {
