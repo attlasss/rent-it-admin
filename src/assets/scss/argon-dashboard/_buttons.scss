@@ -4,6 +4,10 @@
   text-transform: none;
   box-shadow: $btn-box-shadow;
 
+  display: flex; /* Add flexbox for alignment */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+
   &:not([class*="btn-outline-"]) {
     border: 0;
   }

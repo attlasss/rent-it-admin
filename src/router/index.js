@@ -8,6 +8,8 @@ import Signin from "../views/Signin.vue";
 import Users from "../views/Users.vue";
 import Comandes from "../views/Comandes.vue";
 import Categories from "../views/Categories/Categories.vue";
+import AddCategories from "../views/Categories/AddCategories.vue";
+import EditCategories from "../views/Categories/EditCategories.vue";
 const routes = [
   {
     path: "/",
@@ -33,6 +35,16 @@ const routes = [
     path: "/categories",
     name: "Categories",
     component: Categories,
+  },
+  {
+    path: "/addCategoria",
+    name: "addCategoria",
+    component: AddCategories,
+  }, 
+  {
+    path: "/editCategoria/:id",
+    name: "editCategoria",
+    component: EditCategories,
   },
   {
     path: "/tables",

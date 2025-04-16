@@ -60,7 +60,7 @@ onMounted(() => {
         <sidenav-item
           to="/categories"
           :class="getRoute === 'categories' ? 'active' : ''"
-          :navText="'Categoria'"
+          :navText="'Categories'"
         >
           <template v-slot:icon>
             <i data-feather="check-square"></i>

@@ -1,89 +1,88 @@
 <template>
-    <div class="app-container">
-      <div class="card">
-        <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-          <h1>Categories</h1>
-          <input v-model="search" type="text" class="form-control w-25" placeholder="Buscar..." />
+  <div class="app-container">
+    <div class="card">
+      <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+        <h1>Categories</h1>
+        <div class="d-flex align-items-center gap-2">
+          <input v-model="search" type="text" class="form-control" style="width: 200px" placeholder="Buscar..." />
+          <argon-button variant="gradient" color="success" type="button" size="lg" @click="addCategoria">
+            Afegir Categoria
+          </argon-button>
         </div>
-        <div class="card-body px-0 pt-0 pb-2 mt-4">
-          <div class="table-responsive p-0">
-            <b-table striped hover bordered class="table align-items-center mb-0" :items="filteredCategoria" :fields="fields">
-              <template #cell(username)="data">
-                <div class="d-flex px-2 py-1">
-                  <div>
-                    <img :src="data.item.foto_perfil || '../../assets/img/default-avatar.jpg'" class="avatar avatar-sm me-3"
-                      alt="user" />
-                  </div>
-                  <div class="d-flex flex-column justify-content-center">
-                    <h6 class="mb-0 text-sm">{{ data.item.username }}</h6>
-                    <p class="text-xs text-secondary mb-0">{{ data.item.email }}</p>
-                  </div>
-                </div>
-              </template>
-  
-              <template #cell(ban)="data">
-                <span class="badge badge-sm" :class="data.item.ban ? 'bg-gradient-danger' : 'bg-gradient-success'">
-                  {{ data.item.ban ? "Ban" : "Actiu" }}
+      </div>
+      <div class="card-body px-0 pt-0 pb-2 mt-4">
+        <div class="p-3">
+          <vue-good-table :columns="fields" :rows="filteredCategoria" :search-options="{ enabled: false }"
+            :pagination-options="{ enabled: true, perPage: 5 }">
+            <!-- Link en el nombre del nombre que lleva a editar Categoria  -->
+            <template #table-row="props">
+              <template v-if="props.column.field === 'nom'">
+                <span @click="$router.push({ name: 'editCategoria', params: { id: props.row.id_categoria } })"
+                  style="cursor: pointer; color: #17c1e8; text-decoration: underline;">
+                  {{ props.row.nom }}
                 </span>
               </template>
-            </b-table>
-          </div>
+            </template>
+
+          </vue-good-table>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import axiosConn from "../../api/axios";
-  
-  export default {
-    data() {
-      return {
-        categories: [],
-        search: "",
-        fields: [
-          { key: "id", label: "id", sortable: true },
-          { key: "username", label: "User", sortable: true },
-          { key: "nom", label: "Nom", sortable: true },
-          { key: "cognoms", label: "Cognoms", sortable: true },
-          { key: "email", label: "Email", sortable: true },
-          { key: "data_naixement", label: "Data Naixement", sortable: true },
-          { key: "dni", label: "DNI", sortable: true },
-          { key: "ban", label: "Status", sortable: true },
-        ],
-      };
+  </div>
+</template>
+
+<script>
+import axiosConn from "../../api/axios";
+import ArgonButton from "@/components/ArgonButton.vue";
+
+export default {
+  components: {
+    ArgonButton
+  },
+  data() {
+    return {
+      categories: [],
+      search: "",
+      fields: [
+        { field: "id_categoria", label: "id", sortable: true },
+        { field: "nom", label: "Nom", sortable: true },
+        { field: "descripcio", label: "Descripcio", sortable: true },
+      ],
+    };
+  },
+  computed: {
+    filteredCategoria() {
+      return this.categories.filter((categoria) =>
+        Object.values(categoria).some((value) =>
+          String(value).toLowerCase().includes(this.search.toLowerCase())
+        )
+      );
     },
-    computed: {
-      filteredCategoria() {
-        return this.categories.filter((user) =>
-          Object.values(categoria).some((value) =>
-            String(value).toLowerCase().includes(this.search.toLowerCase())
-          )
-        );
-      },
+  },
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    async getData() {
+      try {
+        const response = await axiosConn.get("/getCategories");
+        this.categories = response.data;
+        console.log(this.categories);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
     },
-    mounted() {   
-      this.getUsers();
+    addCategoria() {
+      this.$router.push({ name: "addCategoria" });
     },
-    methods: {
-      async getUsers() {
-        try {
-          const response = await axiosConn.get("/getUsers");
-          this.users = response.data;
-        } catch (error) {
-          console.error("Error fetching users:", error);
-        }
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  /* Hace que el contenedor ocupe toda la pantalla */
-  .app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  </style>
-  
+  },
+};
+</script>
+
+<style scoped>
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>
