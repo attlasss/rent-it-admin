@@ -18,21 +18,21 @@
               <small v-if="errors.desc" class="text-danger">{{ errors.desc }}</small>
             </div>
           </div>
-          <div class="text-end">
+          <div class="text-end d-flex gap-2">
             <argon-button variant="gradient" color="success" type="submit" size="lg">
               Afegir Categoria
             </argon-button>
-          </div>
-          <div class="text-end">
-            <argon-button variant="gradient" color="success" type="submit" size="lg">
+            <argon-button variant="gradient" color="info" type="button" size="lg" @click="$router.push({ name: 'Categories' })">
               Enrere
             </argon-button>
           </div>
+
         </form>
       </div>
     </div>
     <transition name="fade">
-      <div v-if="toast" class="toast-message bg-success text-white px-3 py-2 rounded shadow position-fixed bottom-0 end-0 m-4">
+      <div v-if="toast"
+        class="toast-message bg-success text-white px-3 py-2 rounded shadow position-fixed bottom-0 end-0 m-4">
         Categoria afegida correctament! 🎉
       </div>
     </transition>
@@ -68,17 +68,14 @@ export default {
       if (this.errors.nom || this.errors.desc) return;
 
       axiosConn.post("/addCategoria", { nom: this.nom, desc: this.desc })
-  .then((response) => {
-    console.log(response.data);
-    this.toast = true;
-    setTimeout(() => this.toast = false, 3000); // ocultar toast a los 3s
-    setTimeout(() => {
-      this.$router.push({ name: "addCategoria" });
-    }, 1000); // redirige después de 1s
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+        .then((response) => {
+          console.log(response.data);
+          this.toast = true;
+          setTimeout(() => this.toast = false, 3000); 
+        })
+        .catch((error) => {
+          console.error(error);
+        });
 
     },
   },
@@ -92,6 +89,7 @@ export default {
   min-height: 100vh;
   padding: 20px;
 }
+
 .toast-message {
   z-index: 1055;
 }
