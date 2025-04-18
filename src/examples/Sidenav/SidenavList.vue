@@ -44,6 +44,28 @@ onMounted(() => {
           </template>
         </sidenav-item>
       </li>
+      <li class="nav-item">
+        <sidenav-item
+          to="/articles"
+          :class="getRoute === 'articles' ? 'active' : ''"
+          :navText="'Articles'"
+        >
+          <template v-slot:icon>
+            <i data-feather="list"></i>
+          </template>
+        </sidenav-item>
+      </li>
+      <li class="nav-item">
+        <sidenav-item
+          to="/notificacions"
+          :class="getRoute === 'notificacions' ? 'active' : ''"
+          :navText="'Notificacions'"
+        >
+          <template v-slot:icon>
+            <i data-feather="send"></i>
+          </template>
+        </sidenav-item>
+      </li>
 
       <li class="nav-item">
         <sidenav-item

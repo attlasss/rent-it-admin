@@ -10,6 +10,11 @@ import Comandes from "../views/Comandes.vue";
 import Categories from "../views/Categories/Categories.vue";
 import AddCategories from "../views/Categories/AddCategories.vue";
 import EditCategories from "../views/Categories/EditCategories.vue";
+import Articles from "../views/Articles.vue";
+import Notificacions from "../views/Notificacions/Notificacions.vue";
+import AddNotificacions from "../views/Notificacions/AddNotificacio.vue";
+import EditNotificacions from "../views/Notificacions/EditNotificacio.vue";
+import DeleteNotificacio from "../views/Notificacions/DeleteNotificacio.vue";
 const routes = [
   {
     path: "/",
@@ -25,6 +30,11 @@ const routes = [
     path: "/users",
     name: "Users",
     component: Users,
+  },
+  {
+    path: "/articles",
+    name: "Articles",
+    component: Articles,
   },
   {
     path: "/comandes",
@@ -45,6 +55,26 @@ const routes = [
     path: "/editCategoria/:id",
     name: "editCategoria",
     component: EditCategories,
+  },
+  {
+    path: "/notificacions",
+    name: "Notificacions",
+    component: Notificacions,
+  },
+  {
+    path: "/addNotificacions",
+    name: "AddNotificacions",
+    component: AddNotificacions,
+  },
+  {
+    path: "/editNotificacions/:id",
+    name: "EditNotificacions",
+    component: EditNotificacions,
+  },
+  {
+    path: "/deleteNotificacio/:id",
+    name: "DeleteNotificacio",
+    component: DeleteNotificacio,
   },
   {
     path: "/tables",

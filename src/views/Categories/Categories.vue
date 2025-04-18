@@ -67,7 +67,6 @@ export default {
       try {
         const response = await axiosConn.get("/getCategories");
         this.categories = response.data;
-        console.log(this.categories);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
