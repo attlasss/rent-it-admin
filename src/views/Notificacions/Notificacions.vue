@@ -2,22 +2,21 @@
     <div class="app-container">
       <div class="card">
         <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-          <h1>Categories</h1>
+          <h1>Notificacions</h1>
           <div class="d-flex align-items-center gap-2">
             <input v-model="search" type="text" class="form-control" style="width: 200px" placeholder="Buscar..." />
-            <argon-button variant="gradient" color="success" type="button" size="lg" @click="addCategoria">
-              Afegir Categoria
+            <argon-button variant="gradient" color="success" type="button" size="lg" @click="addNotificacio">
+              Afegir Notificacio
             </argon-button>
           </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2 mt-4">
           <div class="p-3">
-            <vue-good-table :columns="fields" :rows="filteredCategoria" :search-options="{ enabled: false }"
+            <vue-good-table :columns="fields" :rows="filteredNotificacio" :search-options="{ enabled: false }"
               :pagination-options="{ enabled: true, perPage: 5 }">
-              <!-- Link en el nombre del nombre que lleva a editar Categoria  -->
               <template #table-row="props">
                 <template v-if="props.column.field === 'nom'">
-                  <span @click="$router.push({ name: 'editCategoria', params: { id: props.row.id_categoria } })"
+                  <span @click="$router.push({ name: 'EditNotificacions', params: { id: props.row.id_notificacio } })"
                     style="cursor: pointer; color: #17c1e8; text-decoration: underline;">
                     {{ props.row.nom }}
                   </span>
@@ -41,19 +40,20 @@
     },
     data() {
       return {
-        categories: [],
+        notificacions: [],
         search: "",
         fields: [
-          { field: "id_categoria", label: "id", sortable: true },
+          { field: "id_notificacio", label: "id", sortable: true },
           { field: "nom", label: "Nom", sortable: true },
           { field: "descripcio", label: "Descripcio", sortable: true },
+          { field: "missatge", label: "Missatge", sortable: true },
         ],
       };
     },
     computed: {
-      filteredCategoria() {
-        return this.categories.filter((categoria) =>
-          Object.values(categoria).some((value) =>
+      filteredNotificacio() {
+        return this.notificacions.filter((n) =>
+          Object.values(n).some((value) =>
             String(value).toLowerCase().includes(this.search.toLowerCase())
           )
         );
@@ -65,14 +65,14 @@
     methods: {
       async getData() {
         try {
-          const response = await axiosConn.get("/getCategories");
-          this.categories = response.data;
+          const response = await axiosConn.get("/getNotificacions");
+          this.notificacions = response.data;
         } catch (error) {
-          console.error("Error fetching users:", error);
+          console.error("Error fetching notificacions:", error);
         }
       },
-      addCategoria() {
-        this.$router.push({ name: "addCategoria" });
+      addNotificacio() {
+        this.$router.push({ name: "AddNotificacions" });
       },
     },
   };

@@ -31,9 +31,9 @@
       </div>
     </div>
     <transition name="fade">
-      <div v-if="toast"
-        class="toast-message bg-success text-white px-3 py-2 rounded shadow position-fixed bottom-0 end-0 m-4">
-        Categoria editada correctament! 🎉
+      <div v-if="toast" class="toast-message text-white px-3 py-2 rounded shadow position-fixed bottom-0 end-0 m-4"
+        :class="toastColor === 'success' ? 'bg-success' : 'bg-danger'">
+        {{ toastMessage }}
       </div>
     </transition>
   </div>
@@ -58,6 +58,8 @@ export default {
         desc: ""
       },
       toast: false,
+      toastMessage: "",
+      toastColor: "success",
     };
   },
   mounted() {
@@ -81,13 +83,22 @@ export default {
       if (this.errors.nom || this.errors.desc) return;
 
       axiosConn.put("/editCategoria", { nom: this.nom, desc: this.desc, id: this.$route.params.id })
-        .then((response) => {
-          console.log(response.data);
-          this.toast = true;
-          setTimeout(() => this.toast = false, 3000); // ocultar toast a los 3s
+      .then((response) => {
+          if (response.status === 200) {
+            this.toastMessage = "Categoria modificada correctament! ";
+            this.toastColor = "success";
+            this.toast = true;
+            setTimeout(() => {
+              this.toast = false;
+              this.$router.push({ name: "Categories" });
+            }, 2000);
+          }
         })
         .catch((error) => {
-          console.error(error);
+          this.toastMessage = error.response?.data?.message || "Error inesperat 😵‍💫";
+          this.toastColor = "danger";
+          this.toast = true;
+          setTimeout(() => this.toast = false, 3000);
         });
 
     },

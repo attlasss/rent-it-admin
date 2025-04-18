@@ -1,87 +1,116 @@
 <template>
-    <div class="app-container">
-      <div class="card">
-        <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-          <h1>Categories</h1>
-          <div class="d-flex align-items-center gap-2">
-            <input v-model="search" type="text" class="form-control" style="width: 200px" placeholder="Buscar..." />
-            <argon-button variant="gradient" color="success" type="button" size="lg" @click="addCategoria">
-              Afegir Categoria
+  <div class="app-container">
+    <div class="card">
+      <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+        <h1>Afegir Notificació</h1>
+      </div>
+      <div class="card-body px-4 pt-0 pb-4 mt-3">
+        <form @submit.prevent="addNotif">
+          <div class="row mb-2">
+            <div class="col-md-6 mb-2">
+              <label for="nom" class="form-label">Nom</label>
+              <argon-input id="nom" type="text" placeholder="Nom" v-model="nom" size="lg" />
+              <!-- Controla si hay errores  -->
+              <small v-if="errors.nom" class="text-danger">{{ errors.nom }}</small>
+            </div>
+            <div class="col-md-6 mb-2">
+              <label for="desc" class="form-label">Descripció</label>
+              <argon-input id="desc" type="text" placeholder="Descripció" v-model="desc" size="lg" />
+              <small v-if="errors.desc" class="text-danger">{{ errors.desc }}</small>
+            </div>
+            <div class="col-md-12 mb-2">
+              <label for="missatge" class="form-label">Missatge</label>
+              <argon-input id="missatge" type="text" placeholder="Missatge" v-model="missatge" size="lg" />
+              <small v-if="errors.missatge" class="text-danger">{{ errors.missatge }}</small>
+            </div>
+          </div>
+          <div class="text-end d-flex gap-2">
+            <argon-button variant="gradient" color="success" type="submit" size="lg">
+              Afegir Notificació
+            </argon-button>
+            <argon-button variant="gradient" color="info" type="button" size="lg" @click="$router.push({ name: 'Notificacions' })">
+              Enrere
             </argon-button>
           </div>
-        </div>
-        <div class="card-body px-0 pt-0 pb-2 mt-4">
-          <div class="p-3">
-            <vue-good-table :columns="fields" :rows="filteredCategoria" :search-options="{ enabled: false }"
-              :pagination-options="{ enabled: true, perPage: 5 }">
-              <!-- Link en el nombre del nombre que lleva a editar Categoria  -->
-              <template #table-row="props">
-                <template v-if="props.column.field === 'nom'">
-                  <span @click="$router.push({ name: 'editCategoria', params: { id: props.row.id_categoria } })"
-                    style="cursor: pointer; color: #17c1e8; text-decoration: underline;">
-                    {{ props.row.nom }}
-                  </span>
-                </template>
-              </template>
-  
-            </vue-good-table>
-          </div>
-        </div>
+
+        </form>
       </div>
     </div>
-  </template>
-  
-  <script>
-  import axiosConn from "../../api/axios";
-  import ArgonButton from "@/components/ArgonButton.vue";
-  
-  export default {
-    components: {
-      ArgonButton
-    },
-    data() {
-      return {
-        categories: [],
-        search: "",
-        fields: [
-          { field: "id_categoria", label: "id", sortable: true },
-          { field: "nom", label: "Nom", sortable: true },
-          { field: "descripcio", label: "Descripcio", sortable: true },
-        ],
-      };
-    },
-    computed: {
-      filteredCategoria() {
-        return this.categories.filter((categoria) =>
-          Object.values(categoria).some((value) =>
-            String(value).toLowerCase().includes(this.search.toLowerCase())
-          )
-        );
+    <transition name="fade">
+      <div v-if="toast" class="toast-message text-white px-3 py-2 rounded shadow position-fixed bottom-0 end-0 m-4"
+        :class="toastColor === 'success' ? 'bg-success' : 'bg-danger'">
+        {{ toastMessage }}
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script>
+import axiosConn from "../../api/axios";
+import ArgonInput from "@/components/ArgonInput.vue";
+import ArgonButton from "@/components/ArgonButton.vue";
+
+export default {
+  components: {
+    ArgonInput,
+    ArgonButton,
+  },
+  // Variables 
+  data() {
+    return {
+      nom: "",
+      desc: "",
+      missatge: "",
+      errors: {
+        nom: "",
+        desc: "",
+        missatge: "",
       },
+      toast: false,
+      toastMessage: "",
+      toastColor: "success",
+    };
+  },
+  methods: {
+    addNotif() {
+      // Validació de formulari
+      this.errors.nom = this.nom.trim() === "" ? "El nom no pot estar buit" : "";
+      this.errors.desc = this.desc.trim() === "" ? "La descripció no pot estar buida" : "";
+      this.errors.missatge = this.missatge.trim() === "" ? "El missatge no pot estar buit" : "";
+      if (this.errors.nom || this.errors.desc || this.errors.missatge) return;
+
+      axiosConn.post("/addNotificacio", { nom: this.nom, desc: this.desc, missatge: this.missatge })
+      .then((response) => {
+          if (response.status === 200) {
+            this.toastMessage = "Notificació afegida correctament! ";
+            this.toastColor = "success";
+            this.toast = true;
+            setTimeout(() => {
+              this.toast = false;
+              this.$router.push({ name: "Notificacions" });
+            }, 2000);
+          }
+        })
+        .catch((error) => {
+          this.toastMessage = error.response?.data?.message || "Error inesperat 😵‍💫";
+          this.toastColor = "danger";
+          this.toast = true;
+          setTimeout(() => this.toast = false, 3000);
+        });
     },
-    mounted() {
-      this.getData();
-    },
-    methods: {
-      async getData() {
-        try {
-          const response = await axiosConn.get("/getCategories");
-          this.categories = response.data;
-        } catch (error) {
-          console.error("Error fetching users:", error);
-        }
-      },
-      addCategoria() {
-        this.$router.push({ name: "addCategoria" });
-      },
-    },
-  };
-  </script>
-  
-  <style scoped>
-  .app-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  </style>
+  },
+};
+</script>
+
+<style scoped>
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.toast-message {
+  z-index: 1055;
+}
+</style>

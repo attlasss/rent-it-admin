@@ -57,18 +57,6 @@ onMounted(() => {
       </li>
       <li class="nav-item">
         <sidenav-item
-          to="/notificacions"
-          :class="getRoute === 'notificacions' ? 'active' : ''"
-          :navText="'Notificacions'"
-        >
-          <template v-slot:icon>
-            <i data-feather="send"></i>
-          </template>
-        </sidenav-item>
-      </li>
-
-      <li class="nav-item">
-        <sidenav-item
           to="/comandes"
           :class="getRoute === 'comandes' ? 'active' : ''"
           :navText="'Comandes'"
@@ -86,6 +74,17 @@ onMounted(() => {
         >
           <template v-slot:icon>
             <i data-feather="check-square"></i>
+          </template>
+        </sidenav-item>
+      </li>
+      <li class="nav-item">
+        <sidenav-item
+          to="/notificacions"
+          :class="getRoute === 'notificacions' ? 'active' : ''"
+          :navText="'Notificacions'"
+        >
+          <template v-slot:icon>
+            <i data-feather="send"></i>
           </template>
         </sidenav-item>
       </li>
