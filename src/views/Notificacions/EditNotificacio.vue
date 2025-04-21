@@ -26,7 +26,7 @@
           </div>
           <div class="text-end d-flex gap-2">
             <argon-button variant="gradient" color="success" type="submit" size="lg">
-              Edit Categoria
+              Edit Notificació
             </argon-button>
             <argon-button variant="gradient" color="info" type="button" size="lg" @click="$router.push({ name: 'Notificacions' })">
               Enrere
@@ -59,9 +59,11 @@ export default {
     return {
       nom: "",
       desc: "",
+      missatge: "",
       errors: {
         nom: "",
-        desc: ""
+        desc: "",
+        missatge: "",
       },
       toast: false,
       toastMessage: "",
@@ -83,21 +85,21 @@ export default {
           console.error(error);
         });
     },
-    editCategoria() {
+    editNotificacio() {
       this.errors.nom = this.nom.trim() === "" ? "El nom no pot estar buit" : "";
       this.errors.desc = this.desc.trim() === "" ? "La descripció no pot estar buida" : "";
+      this.errors.missatge = this.missatge.trim() === "" ? "El missatge no pot estar buit" : "";
+      if (this.errors.nom || this.errors.desc || this.errors.missatge)  return;
 
-      if (this.errors.nom || this.errors.desc) return;
-
-      axiosConn.put("/editCategoria", { nom: this.nom, desc: this.desc, id: this.$route.params.id })
+      axiosConn.put("/editNotificacio", { nom: this.nom, desc: this.desc, missatge: this.missatge, id: this.$route.params.id })
       .then((response) => {
           if (response.status === 200) {
-            this.toastMessage = "Categoria modificada correctament! ";
+            this.toastMessage = "Notificació modificada correctament! ";
             this.toastColor = "success";
             this.toast = true;
             setTimeout(() => {
               this.toast = false;
-              this.$router.push({ name: "Categories" });
+              this.$router.push({ name: "Notificacions" });
             }, 2000);
           }
         })
