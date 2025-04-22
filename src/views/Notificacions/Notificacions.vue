@@ -90,30 +90,30 @@ export default {
       this.$router.push({ name: "AddNotificacions" });
     },
     async deleteNotificacio(id) {
-  if (!confirm("Estàs segur que vols eliminar aquesta notificació?")) {
-    return;
-  }
+      if (!confirm("Estàs segur que vols eliminar aquesta notificació?")) {
+        return;
+      }
 
-  try {
-    const response = await axiosConn.delete(`/deleteNotificacio/${id}`);
-    if (response.status === 200) {
-      this.toastMessage = "Notificació eliminada correctament!";
-      this.toastColor = "success";
-      this.toast = true;
-      setTimeout(() => {
-        this.toast = false;
-        this.$router.push({ name: "Notificacions" });
-      }, 2000);
-      // Recarga la pagina 
-      this.getData(); // Actualiza la lista de notificacions después de eliminar
+      try {
+        const response = await axiosConn.delete(`/deleteNotificacio/${id}`);
+        if (response.status === 200) {
+          this.toastMessage = "Notificació eliminada correctament!";
+          this.toastColor = "success";
+          this.toast = true;
+          setTimeout(() => {
+            this.toast = false;
+            this.$router.push({ name: "Notificacions" });
+          }, 2000);
+          // Recarga la pagina 
+          this.getData(); // Actualiza la lista de notificacions después de eliminar
+        }
+      } catch (error) {
+        this.toastMessage = error.response?.data?.message || "Error inesperat 😵‍💫";
+        this.toastColor = "danger";
+        this.toast = true;
+        setTimeout(() => this.toast = false, 3000);
+      }
     }
-  } catch (error) {
-    this.toastMessage = error.response?.data?.message || "Error inesperat 😵‍💫";
-    this.toastColor = "danger";
-    this.toast = true;
-    setTimeout(() => this.toast = false, 3000);
-  }
-}
 
   },
 };

@@ -9,6 +9,19 @@
         <div class="p-3">
           <vue-good-table :columns="columns" :rows="filteredUsers" :search-options="{ enabled: false }"
             :pagination-options="{ enabled: true, perPage: 5 }">
+            <template #table-row="props">
+              <!-- Ban pone si esta activo o baneado -->
+              <template v-if="props.column.field === 'ban'">
+                <span :class="props.row.ban ? 'text-danger' : 'text-success'">
+                  {{ props.row.ban ? 'Banejat' : 'Actiu' }}
+                </span>
+              </template>
+              <template v-if="props.column.field === 'actions'">
+                <button class="btn btn-danger btn-sm mb-0" @click="addPenalitzacio(props.row.id)">
+                  Afegir Penalitzacio
+                </button>
+              </template>
+            </template>
           </vue-good-table>
         </div>
       </div>
@@ -33,6 +46,7 @@ export default {
         { label: "Data Naixement", field: "data_naixement" },
         { label: "DNI", field: "dni" },
         { label: "Status", field: "ban" },
+        { label: "Accions", field: "actions" },
       ],
     };
   },
@@ -56,6 +70,9 @@ export default {
       } catch (error) {
         console.error("Error fetching users:", error);
       }
+    },
+    addPenalitzacio(userId) {
+      this.$router.push({ name: 'AddPenalitzacio', params: { id: userId } });
     },
   },
 };
