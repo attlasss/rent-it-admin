@@ -102,6 +102,18 @@ onMounted(() => {
 
       <li class="nav-item">
         <sidenav-item
+          to="/devolucions"
+          :class="getRoute === 'devolucions' ? 'active' : ''"
+          :navText="'Devolucions'"
+        >
+          <template v-slot:icon>
+            <i data-feather="return"></i>
+          </template>
+        </sidenav-item>
+      </li>
+
+      <li class="nav-item">
+        <sidenav-item
           to="/tables"
           :class="getRoute === 'tables' ? 'active' : ''"
           :navText="'Tables'"

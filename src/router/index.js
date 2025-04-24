@@ -16,6 +16,7 @@ import AddNotificacions from "../views/Notificacions/AddNotificacio.vue";
 import EditNotificacions from "../views/Notificacions/EditNotificacio.vue";
 import DeleteNotificacio from "../views/Notificacions/DeleteNotificacio.vue";
 import AddPenalitzacio from "../views/Penalitzacio/AddPenalitzacio.vue";
+import Devolucions from "../views/Devolucions";
 
 const routes = [
   {
@@ -82,6 +83,11 @@ const routes = [
     path: "/addPenalitzacio/:id",
     name: "AddPenalitzacio",
     component: AddPenalitzacio,
+  },
+  {
+    path: "/devolucions",
+    name: "Devolucions",
+    component: Devolucions,
   },
   {
     path: "/tables",
