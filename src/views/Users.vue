@@ -16,11 +16,12 @@
                   {{ props.row.ban ? 'Banejat' : 'Actiu' }}
                 </span>
               </template>
-              <template v-if="props.column.field === 'actions'">
+              <template v-if="props.column.field === 'actions' && props.row.ban !== 1">
                 <button class="btn btn-danger btn-sm mb-0" @click="addPenalitzacio(props.row.id)">
                   Afegir Penalitzacio
                 </button>
               </template>
+
             </template>
           </vue-good-table>
         </div>

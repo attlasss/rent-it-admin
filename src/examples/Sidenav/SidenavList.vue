@@ -88,17 +88,6 @@ onMounted(() => {
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
-        <sidenav-item
-          to="/penalitzacions"
-          :class="getRoute === 'penalitzacions' ? 'active' : ''"
-          :navText="'Penalitzacions'"
-        >
-          <template v-slot:icon>
-            <i data-feather="slash"></i>
-          </template>
-        </sidenav-item>
-      </li>
 
       <li class="nav-item">
         <sidenav-item
@@ -107,7 +96,18 @@ onMounted(() => {
           :navText="'Devolucions'"
         >
           <template v-slot:icon>
-            <i data-feather="return"></i>
+            <i data-feather="rotate-ccw"></i>
+          </template>
+        </sidenav-item>
+      </li>
+      <li class="nav-item">
+        <sidenav-item
+          to="/penalitzacions"
+          :class="getRoute === 'penalitzacions' ? 'active' : ''"
+          :navText="'Penalitzacions'"
+        >
+          <template v-slot:icon>
+            <i data-feather="slash"></i>
           </template>
         </sidenav-item>
       </li>

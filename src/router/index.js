@@ -15,6 +15,7 @@ import Notificacions from "../views/Notificacions/Notificacions.vue";
 import AddNotificacions from "../views/Notificacions/AddNotificacio.vue";
 import EditNotificacions from "../views/Notificacions/EditNotificacio.vue";
 import DeleteNotificacio from "../views/Notificacions/DeleteNotificacio.vue";
+import Penalitzacio from "../views/Penalitzacio/Penalitzacions.vue";
 import AddPenalitzacio from "../views/Penalitzacio/AddPenalitzacio.vue";
 import Devolucions from "../views/Devolucions";
 
@@ -83,6 +84,11 @@ const routes = [
     path: "/addPenalitzacio/:id",
     name: "AddPenalitzacio",
     component: AddPenalitzacio,
+  },
+  {
+    path: "/penalitzacions",
+    name: "Penalitzacions",
+    component: Penalitzacio,
   },
   {
     path: "/devolucions",

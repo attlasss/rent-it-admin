@@ -85,6 +85,9 @@ export default {
           }
         })
         .catch((error) => {
+          // El operador ?. es un encadenamiento opcional que permite acceder a propiedades de un objeto
+          // sin tener que verificar si el objeto es nulo o indefinido.
+          // Si error.response es nulo o indefinido, no se lanzará un error.
           this.toastMessage = error.response?.data?.message || "Error inesperat 😵‍💫";
           this.toastColor = "danger";
           this.toast = true;
