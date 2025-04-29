@@ -18,6 +18,7 @@ import DeleteNotificacio from "../views/Notificacions/DeleteNotificacio.vue";
 import Penalitzacio from "../views/Penalitzacio/Penalitzacions.vue";
 import AddPenalitzacio from "../views/Penalitzacio/AddPenalitzacio.vue";
 import Devolucions from "../views/Devolucions";
+import Valoracions from "../views/Valoracions";
 
 const routes = [
   {
@@ -89,6 +90,11 @@ const routes = [
     path: "/penalitzacions",
     name: "Penalitzacions",
     component: Penalitzacio,
+  },
+  {
+    path: "/valoracions",
+    name: "Valoracions",
+    component: Valoracions,
   },
   {
     path: "/devolucions",
