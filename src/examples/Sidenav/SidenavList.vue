@@ -3,7 +3,7 @@ import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 // import { useStore } from "vuex";
 import SidenavItem from "./SidenavItem.vue";
-import feather from "feather-icons"; // Asegúrate de que feather-icons está instalado
+import feather from "feather-icons"; 
 
 // const store = useStore();
 
@@ -16,6 +16,8 @@ const getRoute = computed(() => {
 onMounted(() => {
   feather.replace(); // Ejecutar Feather Icons cuando el componente se monte
 });
+
+feather.replace(); // Reemplazar los iconos de Feather en el DOM
 </script>
 
 <template>
@@ -119,55 +121,7 @@ onMounted(() => {
           :navText="'Valoracions'"
         >
           <template v-slot:icon>
-            <i data-feather="slash"></i>
-          </template>
-        </sidenav-item>
-      </li>
-
-      <li class="nav-item">
-        <sidenav-item
-          to="/tables"
-          :class="getRoute === 'tables' ? 'active' : ''"
-          :navText="'Tables'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-
-      <li class="nav-item">
-        <sidenav-item
-          to="/billing"
-          :class="getRoute === 'billing' ? 'active' : ''"
-          :navText="'Billing'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-
-      <li class="nav-item">
-        <sidenav-item
-          to="/profile"
-          :class="getRoute === 'profile' ? 'active' : ''"
-          :navText="'Profile'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
-          </template>
-        </sidenav-item>
-      </li>
-
-      <li class="nav-item">
-        <sidenav-item
-          to="/signin"
-          :class="getRoute === 'signin' ? 'active' : ''"
-          :navText="'Sign In'"
-        >
-          <template v-slot:icon>
-            <i class="ni ni-single-copy-04 text-danger text-sm opacity-10"></i>
+            <i data-feather="award"></i>
           </template>
         </sidenav-item>
       </li>

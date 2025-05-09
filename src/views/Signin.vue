@@ -45,6 +45,12 @@
         </div>
       </div>
     </section>
+    <transition name="fade">
+      <div v-if="toast" class="toast-message text-white px-3 py-2 rounded shadow position-fixed bottom-0 end-0 m-4"
+        :class="toastColor === 'success' ? 'bg-success' : 'bg-danger'">
+        {{ toastMessage }}
+      </div>
+    </transition>
   </main>
 </template>
 <script>
@@ -63,6 +69,9 @@ export default {
       username: "",
       password: "",
       body: document.getElementsByTagName("body")[0],
+      toast: false,
+      toastMessage: "",
+      toastColor: "success",
     };
   },
   computed: {
@@ -73,54 +82,78 @@ export default {
       if (!this.comprobaciones()) return; // Si hay error, detiene la función
 
       try {
-        const response = await axiosConn.post('/login', {
+        await axiosConn.post('/login', {
           username: this.username, // Asegúrate de que coincida con el backend
           password: this.password
+        }).then(response => {
+          if (response.data.status === 200) {
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("token", response.data.token);
+            this.$router.push({ name: "Dashboard" });
+          } else if (response.data.status === 401) {
+            this.toastMessage = "Error: Usuari o contrasenya incorrectes";
+            this.toastColor = "danger";
+            this.toast = true;
+            setTimeout(() => {
+              this.toast = false;
+            }, 2000);
+          } else {
+            alert("Error desconegut");
+          }
         }).catch(error => {
-          console.error('Error al iniciar sessió:', error);
-        });
-
-        response.data.status === 200 ? this.$router.push({ name: "Dashboard" }) : alert("Usuari o contrasenya incorrectes");
+            this.toastMessage = "Error intern" + error;
+            this.toastColor = "danger";
+            this.toast = true;
+            setTimeout(() => {
+              this.toast = false;
+            }, 2000);
+          });
       } catch (error) {
         console.error('Error al iniciar sessió:', error);
-      } 
+        this.toastMessage = "Error desconegut";
+        this.toastColor = "danger";
+        this.toast = true;
+        setTimeout(() => {
+          this.toast = false;
+        }, 2000);
+      }
+    },
+
+    comprobaciones() {
+      let isValid = true;
+
+      if (!this.username) {
+        document.getElementById("error_username").innerHTML = "*El camp usuari és obligatori";
+        isValid = false;
+      } else {
+        document.getElementById("error_username").innerHTML = "";
+      }
+
+      if (!this.password) {
+        document.getElementById("error_password").innerHTML = "*El camp contrasenya és obligatori";
+        isValid = false;
+      } else {
+        document.getElementById("error_password").innerHTML = "";
+      }
+
+      return isValid; // Devuelve true si todo está bien, false si hay errores
+    }
+
   },
-
-  comprobaciones() {
-    let isValid = true;
-
-    if (!this.username) {
-      document.getElementById("error_username").innerHTML = "*El camp usuari és obligatori";  
-      isValid = false;
-    } else {
-      document.getElementById("error_username").innerHTML = "";
-    }
-
-    if (!this.password) {
-      document.getElementById("error_password").innerHTML = "*El camp contrasenya és obligatori";
-      isValid = false;
-    } else {
-      document.getElementById("error_password").innerHTML = "";
-    }
-
-    return isValid; // Devuelve true si todo está bien, false si hay errores
+  mounted() {
+    this.$store.state.hideConfigButton = true;
+    this.$store.state.showNavbar = false;
+    this.$store.state.showSidenav = false;
+    this.$store.state.showFooter = false;
+    this.body.classList.remove("bg-gray-100");
+  },
+  beforeUnmount() {
+    this.$store.state.hideConfigButton = false;
+    this.$store.state.showNavbar = true;
+    this.$store.state.showSidenav = true;
+    this.$store.state.showFooter = true;
+    this.body.classList.add("bg-gray-100");
   }
-
-},
-mounted() {
-  this.$store.state.hideConfigButton = true;
-  this.$store.state.showNavbar = false;
-  this.$store.state.showSidenav = false;
-  this.$store.state.showFooter = false;
-  this.body.classList.remove("bg-gray-100");
-},
-beforeUnmount() {
-  this.$store.state.hideConfigButton = false;
-  this.$store.state.showNavbar = true;
-  this.$store.state.showSidenav = true;
-  this.$store.state.showFooter = true;
-  this.body.classList.add("bg-gray-100");
-}
 
 };
 </script>
