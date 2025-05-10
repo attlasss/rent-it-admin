@@ -59,3 +59,22 @@ const navClasses = computed(() => {
     <app-footer v-show="showFooter" />
   </main>
 </template>
+
+<style>
+.logo {
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 400;
+  font-size: 5rem;
+  color: var(--bs-success);
+}
+
+.logo-small {
+  display: block;
+  text-align: center; 
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 10px auto; 
+  color: var(--bs-success);
+}
+
+</style>

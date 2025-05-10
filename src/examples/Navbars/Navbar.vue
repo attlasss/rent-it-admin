@@ -12,7 +12,7 @@
       />
 
       <button class="btn bg-white" @click="logout">
-        <span data-feather="log-out"></span>
+        <span data-feather="log-out"></span> 
         <span class="d-sm-inline d-none">Tanca Sessió</span>
       </button>
     </div>
@@ -38,7 +38,7 @@ feather.replace();
 function logout() {
 
   // limpiamos todo el local storage 
-  localStorage.clear(); 
+  sessionStorage.clear(); 
   router.push("/login");
 }
 </script>

@@ -5,8 +5,6 @@ import { useRoute } from "vue-router";
 import SidenavItem from "./SidenavItem.vue";
 import feather from "feather-icons"; 
 
-// const store = useStore();
-
 const route = useRoute();
 const getRoute = computed(() => {
   const routeArr = route.path.split("/");
@@ -25,12 +23,12 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
     <ul class="navbar-nav">
       <li class="nav-item">
         <sidenav-item
-          to="/dashboard-default"
-          :class="getRoute === 'dashboard-default' ? 'active' : ''"
+          to="/dashboard"
+          :class="getRoute === 'dashboard' ? 'active' : ''"
           :navText="'Dashboard'"
         >
           <template v-slot:icon>
-            <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+             <span data-feather="layout"></span>
           </template>
         </sidenav-item>
       </li>
@@ -42,7 +40,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Users'"
         >
           <template v-slot:icon>
-            <i data-feather="users"></i>
+            <span data-feather="user"></span>
           </template>
         </sidenav-item>
       </li>
@@ -53,7 +51,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Articles'"
         >
           <template v-slot:icon>
-            <i data-feather="list"></i>
+            <span data-feather="box"></span>
           </template>
         </sidenav-item>
       </li>
@@ -64,7 +62,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Comandes'"
         >
           <template v-slot:icon>
-            <i data-feather="file-text"></i>
+            <span data-feather="shopping-cart"></span>
           </template>
         </sidenav-item>
       </li>
@@ -75,7 +73,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Categories'"
         >
           <template v-slot:icon>
-            <i data-feather="check-square"></i>
+            <span data-feather="grid"></span>
           </template>
         </sidenav-item>
       </li>
@@ -86,7 +84,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Notificacions'"
         >
           <template v-slot:icon>
-            <i data-feather="send"></i>
+            <span data-feather="bell"></span>
           </template>
         </sidenav-item>
       </li>
@@ -98,7 +96,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Devolucions'"
         >
           <template v-slot:icon>
-            <i data-feather="rotate-ccw"></i>
+            <span data-feather="corner-down-left"></span>
           </template>
         </sidenav-item>
       </li>
@@ -109,7 +107,7 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Penalitzacions'"
         >
           <template v-slot:icon>
-            <i data-feather="slash"></i>
+            <span data-feather="alert-triangle"></span>
           </template>
         </sidenav-item>
       </li>
@@ -121,10 +119,11 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           :navText="'Valoracions'"
         >
           <template v-slot:icon>
-            <i data-feather="award"></i>
+            <span data-feather="star"></span>
           </template>
         </sidenav-item>
       </li>
     </ul>
   </div>
 </template>
+

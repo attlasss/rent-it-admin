@@ -17,6 +17,9 @@
             </div>
             <div class="mx-auto col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 order-lg-1">
               <div class="card card-plain">
+                <div class="text-center my-4">
+                  <h1 class="logo">Rent IT</h1>
+                </div>
                 <div class="pb-0 card-header text-start">
                   <h4 class="font-weight-bolder">INICIAR SESSIÓ</h4>
                   <p class="mb-0">Introdueix el teu usuari i contrasenya per iniciar sessió</p>
@@ -53,6 +56,7 @@
     </transition>
   </main>
 </template>
+
 <script>
 import ArgonInput from "@/components/ArgonInput.vue";
 import ArgonButton from "@/components/ArgonButton.vue";
@@ -79,44 +83,33 @@ export default {
   },
   methods: {
     async login() {
-      if (!this.comprobaciones()) return; // Si hay error, detiene la función
-
-      try {
-        await axiosConn.post('/login', {
-          username: this.username, // Asegúrate de que coincida con el backend
-          password: this.password
-        }).then(response => {
-          if (response.data.status === 200) {
-            localStorage.setItem("user", JSON.stringify(response.data.user));
-            localStorage.setItem("token", response.data.token);
-            this.$router.push({ name: "Dashboard" });
-          } else if (response.data.status === 401) {
-            this.toastMessage = "Error: Usuari o contrasenya incorrectes";
-            this.toastColor = "danger";
-            this.toast = true;
-            setTimeout(() => {
-              this.toast = false;
-            }, 2000);
-          } else {
-            alert("Error desconegut");
-          }
-        }).catch(error => {
-            this.toastMessage = "Error intern" + error;
-            this.toastColor = "danger";
-            this.toast = true;
-            setTimeout(() => {
-              this.toast = false;
-            }, 2000);
-          });
-      } catch (error) {
-        console.error('Error al iniciar sessió:', error);
-        this.toastMessage = "Error desconegut";
+      if (!this.comprobaciones()) return;
+      await axiosConn.post('/login', {
+        username: this.username,
+        password: this.password
+      }).then(response => {
+        console.log(response.data.success)
+        if (response.data.success) {
+          sessionStorage.setItem("user", JSON.stringify(response.data.user));
+          sessionStorage.setItem("token", response.data.token);
+          this.$router.push({ name: "Dashboard" });
+        } else {
+          console.log("hoa")
+          this.toastMessage = response.data.message; // Mostrar mensaje del backend
+          this.toastColor = "danger";
+          this.toast = true;
+          setTimeout(() => {
+            this.toast = false;
+          }, 2000);
+        }
+      }).catch(error => {
+        this.toastMessage = "Error intern" + error ;
         this.toastColor = "danger";
         this.toast = true;
         setTimeout(() => {
           this.toast = false;
         }, 2000);
-      }
+      });
     },
 
     comprobaciones() {
@@ -136,7 +129,7 @@ export default {
         document.getElementById("error_password").innerHTML = "";
       }
 
-      return isValid; // Devuelve true si todo está bien, false si hay errores
+      return isValid;
     }
 
   },
@@ -157,3 +150,8 @@ export default {
 
 };
 </script>
+<style>
+.toast-message {
+  z-index: 1055;
+}
+</style>

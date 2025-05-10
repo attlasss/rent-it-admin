@@ -23,7 +23,7 @@ const routes = [
     redirect: "/login",
   },
   {
-    path: "/dashboard-default",
+    path: "/dashboard",
     name: "Dashboard",
     component: Dashboard,
     meta: { requiresAuth: true },
@@ -126,7 +126,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
 
   if (to.meta.requiresAuth && !token) {
     next({ name: 'Login' });
