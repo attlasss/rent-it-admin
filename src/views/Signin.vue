@@ -95,7 +95,7 @@ export default {
           this.$router.push({ name: "Dashboard" });
         } else {
           console.log("hoa")
-          this.toastMessage = response.data.message; // Mostrar mensaje del backend
+          this.toastMessage = response.data.message; 
           this.toastColor = "danger";
           this.toast = true;
           setTimeout(() => {
