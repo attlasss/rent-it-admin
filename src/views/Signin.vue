@@ -88,13 +88,12 @@ export default {
         username: this.username,
         password: this.password
       }).then(response => {
-        console.log(response.data.success)
         if (response.data.success) {
+          // guarda el token i l'usuari a sessionStorage
           sessionStorage.setItem("user", JSON.stringify(response.data.user));
           sessionStorage.setItem("token", response.data.token);
           this.$router.push({ name: "Dashboard" });
         } else {
-          console.log("hoa")
           this.toastMessage = response.data.message; 
           this.toastColor = "danger";
           this.toast = true;
