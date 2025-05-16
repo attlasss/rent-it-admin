@@ -7,10 +7,6 @@ import Categories from "../views/Categories/Categories.vue";
 import AddCategories from "../views/Categories/AddCategories.vue";
 import EditCategories from "../views/Categories/EditCategories.vue";
 import Articles from "../views/Articles.vue";
-import Notificacions from "../views/Notificacions/Notificacions.vue";
-import AddNotificacions from "../views/Notificacions/AddNotificacio.vue";
-import EditNotificacions from "../views/Notificacions/EditNotificacio.vue";
-import DeleteNotificacio from "../views/Notificacions/DeleteNotificacio.vue";
 import Penalitzacio from "../views/Penalitzacio/Penalitzacions.vue";
 import AddPenalitzacio from "../views/Penalitzacio/AddPenalitzacio.vue";
 import Devolucions from "../views/Devolucions";
@@ -62,30 +58,6 @@ const routes = [
     path: "/editCategoria/:id",
     name: "editCategoria",
     component: EditCategories,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/notificacions",
-    name: "Notificacions",
-    component: Notificacions,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/addNotificacions",
-    name: "AddNotificacions",
-    component: AddNotificacions,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/editNotificacions/:id",
-    name: "EditNotificacions",
-    component: EditNotificacions,
-    meta: { requiresAuth: true },
-  },
-  {
-    path: "/deleteNotificacio/:id",
-    name: "DeleteNotificacio",
-    component: DeleteNotificacio,
     meta: { requiresAuth: true },
   },
   {
