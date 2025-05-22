@@ -8,7 +8,18 @@
             <div class="card-body px-0 pt-0 pb-2 mt-4">
                 <div class="p-3">
                     <vue-good-table :columns="fields" :rows="filteredArticles" :search-options="{ enabled: false }"
-                        :pagination-options="{ enabled: true, perPage: 5 }">
+                        :pagination-options="{ enabled: true, perPage: 10 }">
+                        <template v-slot:table-row="props">
+                            <template v-if="props.column.field === 'foto'">
+                                <div class="d-flex align-items-center">
+                                    <img :src="props.row.foto" alt="Article Image" class="img-thumbnail me-2"
+                                        style="width: 50px; height: 50px;" />
+                                </div>
+                            </template>
+                            <template v-else>
+                                {{ props.formattedRow[props.column.field] }}
+                            </template>
+                        </template>
                     </vue-good-table>
                 </div>
             </div>
@@ -26,6 +37,7 @@ export default {
             selectedStatus: "",
             fields: [
                 { field: "id_article", label: "ID", sortable: true },
+                { field: "foto", label: "Foto Article", sortable: true },
                 { field: "nom_vendedor", label: "Venedor", sortable: true },
                 { field: "nom", label: "Nom", sortable: true },
                 { field: "descripcio", label: "Descripció", sortable: true },

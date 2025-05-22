@@ -42,7 +42,6 @@ export default {
         { text: "Categories", icon: "grid", color: "success", route: "/categories" },
         { text: "Comandes", icon: "shopping-cart", color: "success", route: "/comandes" },
         { text: "Valoracions", icon: "star", color: "success", route: "/valoracions" },
-        { text: "Notificacions", icon: "bell", color: "success", route: "/notificacions" },
         { text: "Penalitzacions", icon: "alert-triangle", color: "success", route: "/penalitzacions" },
         { text: "Devolucions", icon: "corner-down-left", color: "success", route: "/devolucions" },
       ],

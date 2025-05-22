@@ -9,6 +9,17 @@
         <div class="p-3">
           <vue-good-table :columns="fields" :rows="filteredDevolucions" :search-options="{ enabled: false }"
             :pagination-options="{ enabled: true, perPage: 5 }">
+            <template v-slot:table-row="props">
+              <template v-if="props.column.field === 'foto'">
+                <div class="d-flex align-items-center">
+                  <img :src="props.row.foto" alt="Article Image" class="img-thumbnail me-2"
+                    style="width: 50px; height: 50px;" />
+                </div>
+              </template>
+              <template v-else>
+                {{ props.formattedRow[props.column.field] }}
+              </template>
+            </template>
           </vue-good-table>
         </div>
       </div>
@@ -31,7 +42,9 @@ export default {
         { field: "vendedor", label: "Venedor", sortable: true },
         { field: "id_article", label: "ID Article", sortable: true },
         { field: "data", label: "Data", sortable: true },
-        { field: "estat", label: "Estat", sortable: true },
+        { field: "estat_devolucio", label: "Estat Devolució", sortable: true },
+        { field: "comentari", label: "Comentari", sortable: true },
+        { field: "estat_article", label: "Estat Article", sortable: true },
         { field: "foto", label: "Foto", sortable: false },
       ],
 
@@ -52,7 +65,7 @@ export default {
   methods: {
     async getDevolucions() {
       try {
-        const response = await axiosConn.get("/getDevolucions");
+        const response = await axiosConn.get("/getDevolucion");
         this.devolucions = response.data;
       } catch (error) {
         console.error("Error fetching devolucions:", error);

@@ -77,17 +77,6 @@ feather.replace(); // Reemplazar los iconos de Feather en el DOM
           </template>
         </sidenav-item>
       </li>
-      <li class="nav-item">
-        <sidenav-item
-          to="/notificacions"
-          :class="getRoute === 'notificacions' ? 'active' : ''"
-          :navText="'Notificacions'"
-        >
-          <template v-slot:icon>
-            <span data-feather="bell"></span>
-          </template>
-        </sidenav-item>
-      </li>
 
       <li class="nav-item">
         <sidenav-item

@@ -27,9 +27,8 @@ export default {
       selectedStatus: "",
       fields: [
         { field: "id_valoracio", label: "ID Valoracio", sortable: true },
-        { field: "id_usuari_emissor", label: "Emissor", sortable: true },
-        { field: "id_usuari_receptor", label: "Receptor", sortable: true },
-        { field: "id_article", label: "ID Article", sortable: true },
+        { field: "emissor", label: "Emissor", sortable: true },
+        { field: "receptor", label: "Receptor", sortable: true },
         { field: "puntuacio", label: "Puntuacio", sortable: true },
         { field: "comentari", label: "Comentari", sortable: true },
       ],

@@ -9,6 +9,7 @@
         <div class="p-3">
           <vue-good-table :columns="fields" :rows="filteredComandes" :search-options="{ enabled: false }"
             :pagination-options="{ enabled: true, perPage: 5 }">
+            
           </vue-good-table>
         </div>
       </div>
