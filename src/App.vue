@@ -69,6 +69,7 @@ const navClasses = computed(() => {
 }
 
 .logo-small {
+  font-family: 'Pacifico', sans-serif;
   display: block;
   text-align: center; 
   font-size: 2rem;
