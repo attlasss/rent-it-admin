@@ -62,7 +62,7 @@ const navClasses = computed(() => {
 
 <style>
 .logo {
-  font-family: 'Urbanist', sans-serif;
+  font-family: 'Pacifico', sans-serif;
   font-weight: 400;
   font-size: 5rem;
   color: var(--bs-success);

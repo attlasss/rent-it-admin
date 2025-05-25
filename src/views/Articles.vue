@@ -13,7 +13,7 @@
                             <template v-if="props.column.field === 'foto'">
                                 <div class="d-flex align-items-center">
                                     <img :src="props.row.foto" alt="Article Image" class="img-thumbnail me-2"
-                                        style="width: 50px; height: 50px;" />
+                                        />
                                 </div>
                             </template>
                             <template v-else>
@@ -80,5 +80,11 @@ export default {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+}
+
+img .img-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 </style>

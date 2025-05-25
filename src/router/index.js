@@ -11,6 +11,7 @@ import Penalitzacio from "../views/Penalitzacio/Penalitzacions.vue";
 import AddPenalitzacio from "../views/Penalitzacio/AddPenalitzacio.vue";
 import Devolucions from "../views/Devolucions";
 import Valoracions from "../views/Valoracions";
+import Report from "../views/Report.vue";
 
 const routes = [
   {
@@ -82,6 +83,12 @@ const routes = [
     path: "/devolucions",
     name: "Devolucions",
     component: Devolucions,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/reports",
+    name: "Reports",
+    component: Report,
     meta: { requiresAuth: true },
   },
   {

@@ -44,6 +44,7 @@ export default {
         { text: "Valoracions", icon: "star", color: "success", route: "/valoracions" },
         { text: "Penalitzacions", icon: "alert-triangle", color: "success", route: "/penalitzacions" },
         { text: "Devolucions", icon: "corner-down-left", color: "success", route: "/devolucions" },
+        { text: "Reports", icon: "file-text", color: "success", route: "/reports" },
       ],
     };
   },
