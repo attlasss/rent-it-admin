@@ -61,6 +61,13 @@ const navClasses = computed(() => {
 </template>
 
 <style>
+
+html, template {
+  font-size: 16px !important; /* o lo que quieras como base */
+  font-family: 'Poppins', sans-serif;
+}
+
+
 .logo {
   font-family: 'Pacifico', sans-serif;
   font-weight: 400;

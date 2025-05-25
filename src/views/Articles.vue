@@ -13,6 +13,7 @@
                             <template v-if="props.column.field === 'foto'">
                                 <div class="d-flex align-items-center">
                                     <img :src="props.row.foto" alt="Article Image" class="img-thumbnail me-2"
+                                    height="50" width="50"
                                         />
                                 </div>
                             </template>
@@ -75,7 +76,7 @@ export default {
     },
 };
 </script>
-<style scoped>
+<style>
 .app-container {
     display: flex;
     flex-direction: column;

@@ -3,7 +3,15 @@
     <div class="card">
       <div class="card-header pb-0 d-flex justify-content-between align-items-center">
         <h1>Devolucions</h1>
-        <input v-model="search" type="text" class="form-control w-25" placeholder="Buscar..." />
+        <div class="d-flex gap-2 align-items-center">
+          <input v-model="search" type="text" class="form-control w-25" placeholder="Buscar..." />
+          <!-- Filtro por estat_devolucio -->
+          <select v-model="selectedStatus" class="form-select w-auto">
+            <option value="">Totes</option>
+            <option value="acceptada">Acceptades</option>
+            <option value="rebutjada">Rebutjades</option>
+          </select>
+        </div>
       </div>
       <div class="card-body px-0 pt-0 pb-2 mt-4">
         <div class="p-3">
@@ -47,16 +55,26 @@ export default {
         { field: "estat_article", label: "Estat Article", sortable: true },
         { field: "foto", label: "Foto", sortable: false },
       ],
-
     };
   },
   computed: {
     filteredDevolucions() {
-      return this.devolucions.filter((d) =>
-        Object.values(d).some((value) =>
-          String(value).toLowerCase().includes(this.search.toLowerCase())
-        )
-      );
+      return this.devolucions
+        .filter((d) => {
+          // Filtro por estado
+          if (this.selectedStatus === "acceptada") {
+            return d.estat_devolucio && d.estat_devolucio.toLowerCase() === "acceptada";
+          }
+          if (this.selectedStatus === "rebutjada") {
+            return d.estat_devolucio && d.estat_devolucio.toLowerCase() === "rebutjada";
+          }
+          return true;
+        })
+        .filter((d) =>
+          Object.values(d).some((value) =>
+            String(value).toLowerCase().includes(this.search.toLowerCase())
+          )
+        );
     },
   },
   mounted() {
