@@ -1,3 +1,6 @@
+# `Hosting: https://rentit2025.vercel.app/login`
+# CREDENCIALES DE ENTRADA: admin - admin-rentit2025
+
 ### Manual d'instal·lació per al projecte Vue (Rent-IT)
 
 ## Requisits Prèvis
